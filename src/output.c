@@ -150,6 +150,7 @@ log_working_directory (int entering)
 static void
 set_append_mode (int fd)
 {
+#ifndef __ANDROID__
 #if defined(F_GETFL) && defined(F_SETFL) && defined(O_APPEND)
   int flags = fcntl (fd, F_GETFL, 0);
   if (flags >= 0)
@@ -157,6 +158,7 @@ set_append_mode (int fd)
       int r;
       EINTRLOOP(r, fcntl (fd, F_SETFL, flags | O_APPEND));
     }
+#endif
 #endif
 }
 

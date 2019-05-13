@@ -78,7 +78,7 @@ char * vms_strsignal (int status);
 
 #else
 
-const char *default_shell = "/bin/sh";
+const char *default_shell = "/system/bin/sh";
 int batch_mode_shell = 0;
 
 #endif
@@ -2475,7 +2475,7 @@ exec_command (char **argv, char **envp)
         else
           shell = 0;
 # else
-        shell = getenv ("SHELL");
+        shell = default_shell;
 # endif
         if (shell == 0)
           shell = default_shell;
@@ -3577,7 +3577,7 @@ construct_command_argv (char *line, char **restp, struct file *file,
     int save = warn_undefined_variables_flag;
     warn_undefined_variables_flag = 0;
 
-    shell = allocated_variable_expand_for_file ("$(SHELL)", file);
+    shell = xstrdup (default_shell);
 #ifdef WINDOWS32
     /*
      * Convert to forward slashes so that construct_command_argv_internal()

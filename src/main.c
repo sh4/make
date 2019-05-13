@@ -1403,7 +1403,7 @@ main (int argc, char **argv, char **envp)
 #endif
             shell_var.name = xstrdup ("SHELL");
             shell_var.length = 5;
-            shell_var.value = xstrdup (ep);
+            shell_var.value = xstrdup (default_shell);
           }
 
         v->export = export;
